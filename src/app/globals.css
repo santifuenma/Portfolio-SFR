@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #fbfbfa;
+  --surface: #ffffff;
+  --ink: #171614;
+  --ink-muted: #6f6b64;
+  --border: #e6e3dd;
+
+  --pastel-red-bg: #fdebec;
+  --pastel-red-fg: #9f2f2d;
+  --pastel-blue-bg: #e1f3fe;
+  --pastel-blue-fg: #1f6c9f;
+  --pastel-green-bg: #edf3ec;
+  --pastel-green-fg: #346538;
+  --pastel-yellow-bg: #fbf3db;
+  --pastel-yellow-fg: #956400;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-border: var(--border);
+
+  --color-pastel-red-bg: var(--pastel-red-bg);
+  --color-pastel-red-fg: var(--pastel-red-fg);
+  --color-pastel-blue-bg: var(--pastel-blue-bg);
+  --color-pastel-blue-fg: var(--pastel-blue-fg);
+  --color-pastel-green-bg: var(--pastel-green-bg);
+  --color-pastel-green-fg: var(--pastel-green-fg);
+  --color-pastel-yellow-bg: var(--pastel-yellow-bg);
+  --color-pastel-yellow-fg: var(--pastel-yellow-fg);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-newsreader);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--pastel-yellow-bg);
+  color: var(--ink);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

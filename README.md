@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Santiago Fuenmayor Ruiz
 
-## Getting Started
+Portfolio personal construido con Next.js 16 (App Router), React 19, TypeScript
+y Tailwind CSS v4. El formulario de contacto guarda los mensajes en Supabase.
 
-First, run the development server:
+## Desarrollo local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Sin las variables de entorno de Supabase, el sitio funciona con normalidad
+pero el formulario de contacto mostrará un error al enviarse. Configúralas
+como se explica abajo para activarlo.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configurar Supabase (formulario de contacto)
 
-## Learn More
+1. Crea un proyecto en [supabase.com](https://supabase.com).
+2. En el **SQL Editor** del proyecto, ejecuta el contenido de
+   [`supabase/schema.sql`](./supabase/schema.sql). Esto crea la tabla
+   `contact_messages` con RLS activado y una política que solo permite
+   insertar (nunca leer) mensajes desde el cliente.
+3. En **Project Settings → API**, copia la `Project URL` y la clave
+   `anon public`.
+4. Copia `.env.example` a `.env.local` y rellena:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-key
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Reinicia `npm run dev`. Los mensajes enviados desde el formulario
+   aparecerán en **Table Editor → contact_messages** dentro de Supabase.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Desplegar en Vercel
 
-## Deploy on Vercel
+1. Sube este repositorio a GitHub.
+2. En [vercel.com/new](https://vercel.com/new), importa el repositorio.
+3. En **Environment Variables**, añade `NEXT_PUBLIC_SUPABASE_URL` y
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY` con los mismos valores que en
+   `.env.local`.
+4. Despliega. Cada push a la rama principal vuelve a desplegar
+   automáticamente.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Añadir el build jugable de un videojuego
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Los juegos se listan en [`src/data/games.ts`](./src/data/games.ts). Para que
+un juego se muestre jugable dentro del sitio (en vez de la tarjeta "próximamente"):
+
+1. Sube el build WebGL a un host que permita incrustarlo en un `iframe`
+   (por ejemplo, un juego publicado en itch.io con la opción
+   "This file will be played in the browser" y embed habilitado).
+2. Añade `embedUrl` (la URL del iframe) y opcionalmente `playUrl` (enlace a
+   la página del juego) a la entrada correspondiente en `games.ts`.
+
+## Actualizar proyectos
+
+Los proyectos mostrados viven en [`src/data/projects.ts`](./src/data/projects.ts)
+como datos estáticos — añade o edita entradas ahí y vuelve a desplegar.
