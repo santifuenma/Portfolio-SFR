@@ -11,6 +11,7 @@ export type Project = {
   status: ProjectStatus;
   repoUrl: string;
   liveUrl?: string;
+  previewImage?: string;
   featured?: boolean;
 };
 
@@ -84,7 +85,6 @@ export const projects: Project[] = [
     role: "Desarrollo full-stack",
     status: "live",
     repoUrl: "https://github.com/santifuenma/PlataformaGastosPersonales",
-    liveUrl: "https://plataforma-gastos-personales.vercel.app",
   },
   {
     slug: "proyecto-biometria",
@@ -98,7 +98,6 @@ export const projects: Project[] = [
     role: "Desarrollo del firmware, API y panel web",
     status: "academic",
     repoUrl: "https://github.com/santifuenma/ProyectoBiometria",
-    liveUrl: "https://sfuenma.upv.edu.es/",
   },
 ];
 

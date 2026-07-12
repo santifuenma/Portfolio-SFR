@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useMagnetic } from "@/hooks/useMagnetic";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const submitRef = useMagnetic<HTMLButtonElement>();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -123,9 +125,10 @@ export default function ContactForm() {
       )}
 
       <button
+        ref={submitRef}
         type="submit"
         disabled={status === "sending"}
-        className="rounded-md bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-transform hover:bg-[#333] active:scale-[0.98] disabled:opacity-50"
+        className="rounded-md bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-colors hover:bg-[#333] disabled:opacity-50"
       >
         {status === "sending" ? "Enviando…" : "Enviar mensaje"}
       </button>

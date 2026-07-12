@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import MagneticLink from "./MagneticLink";
 
 export default function Hero() {
   return (
@@ -35,20 +36,20 @@ export default function Hero() {
 
         <Reveal delay={240}>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
+            <MagneticLink
               href="#proyectos"
-              className="rounded-md bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-transform hover:bg-[#333] active:scale-[0.98]"
+              className="inline-block rounded-md bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-colors hover:bg-[#333]"
             >
               Ver proyectos
-            </a>
-            <a
+            </MagneticLink>
+            <MagneticLink
               href="https://github.com/santifuenma"
               target="_blank"
               rel="noreferrer"
-              className="rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:border-ink"
+              className="inline-block rounded-md border border-border px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:border-ink"
             >
               GitHub ↗
-            </a>
+            </MagneticLink>
           </div>
         </Reveal>
       </div>

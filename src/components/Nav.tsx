@@ -1,3 +1,5 @@
+import MagneticLink from "./MagneticLink";
+
 const links = [
   { href: "#proyectos", label: "Proyectos" },
   { href: "#juegos", label: "Juegos" },
@@ -23,12 +25,12 @@ export default function Nav() {
             </a>
           ))}
         </nav>
-        <a
+        <MagneticLink
           href="#contacto"
-          className="rounded-md bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-transform hover:bg-[#333] active:scale-[0.98]"
+          className="inline-block rounded-md bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-colors hover:bg-[#333]"
         >
           Hablemos
-        </a>
+        </MagneticLink>
       </div>
     </header>
   );
