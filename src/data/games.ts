@@ -8,12 +8,10 @@ export type Game = {
   role: string;
   playUrl?: string;
   embedUrl?: string;
+  posterUrl?: string;
   repoUrl?: string;
 };
 
-// El build WebGL de MYLO: TFS se añadirá cuando esté publicado.
-// Rellena playUrl / embedUrl con el link de itch.io (u otro host) para activar
-// el reproductor incrustado en la sección de juegos.
 export const games: Game[] = [
   {
     slug: "mylo-tfs",
@@ -24,5 +22,7 @@ export const games: Game[] = [
       "Proyecto de videojuego desarrollado en Unity, con comportamiento de IA para personajes no jugables y un sistema de iluminación dinámica construido a medida.",
     stack: ["Unity", "C#"],
     role: "Diseño y desarrollo del juego",
+    embedUrl: "/games/mylo-tfs/index.html",
+    posterUrl: "/games/mylo-tfs-cover.png",
   },
 ];

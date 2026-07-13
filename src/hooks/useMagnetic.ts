@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export function useMagnetic<T extends HTMLElement>(strength = 0.35, radius = 70) {
+export function useMagnetic<T extends HTMLElement>(strength = 0.05, radius = 20) {
   const ref = useRef<T>(null);
 
   useEffect(() => {

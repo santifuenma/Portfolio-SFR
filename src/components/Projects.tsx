@@ -2,6 +2,9 @@ import { projects } from "@/data/projects";
 import ProjectCard from "./ProjectCard";
 import Reveal from "./Reveal";
 
+const STICKY_BASE = 88;
+const STICKY_STEP = 18;
+
 export default function Projects() {
   return (
     <section id="proyectos" className="border-t border-border">
@@ -17,11 +20,17 @@ export default function Projects() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <div className="mt-12 flex flex-col gap-10 sm:gap-14">
           {projects.map((project, i) => (
-            <Reveal key={project.slug} delay={i * 60}>
-              <ProjectCard project={project} />
-            </Reveal>
+            <div
+              key={project.slug}
+              className="sticky"
+              style={{ top: `${STICKY_BASE + i * STICKY_STEP}px`, zIndex: i + 1 }}
+            >
+              <Reveal delay={i * 60}>
+                <ProjectCard project={project} />
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>

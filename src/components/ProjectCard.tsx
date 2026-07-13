@@ -45,23 +45,23 @@ function PreviewPlaceholder({ project }: { project: Project }) {
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="group flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-surface transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-      <div>
-        <div className="relative aspect-[16/10] w-full border-b border-border">
-          {project.previewImage ? (
-            <Image
-              src={project.previewImage}
-              alt={`Captura de ${project.name}`}
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover"
-            />
-          ) : (
-            <PreviewPlaceholder project={project} />
-          )}
-        </div>
+    <article className="group grid overflow-hidden rounded-xl border border-border bg-surface shadow-[0_16px_40px_-16px_rgba(0,0,0,0.14)] transition-shadow duration-200 hover:shadow-[0_20px_50px_-14px_rgba(0,0,0,0.18)] sm:grid-cols-[1.35fr_1fr]">
+      <div className="relative aspect-[4/3] w-full border-b border-border sm:aspect-auto sm:h-full sm:border-b-0 sm:border-r">
+        {project.previewImage ? (
+          <Image
+            src={project.previewImage}
+            alt={`Captura de ${project.name}`}
+            fill
+            sizes="(min-width: 640px) 60vw, 100vw"
+            className="object-cover"
+          />
+        ) : (
+          <PreviewPlaceholder project={project} />
+        )}
+      </div>
 
-        <div className="p-7">
+      <div className="flex flex-col justify-between p-7 sm:p-8">
+        <div>
           <div className="flex items-start justify-between gap-4">
             <h3 className="font-serif text-xl italic tracking-[-0.01em] sm:text-2xl">
               {project.name}
@@ -92,27 +92,27 @@ export default function ProjectCard({ project }: { project: Project }) {
             ))}
           </ul>
         </div>
-      </div>
 
-      <div className="mx-7 mb-7 flex gap-4 border-t border-border pt-4">
-        <a
-          href={project.repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:text-ink-muted"
-        >
-          Código ↗
-        </a>
-        {project.liveUrl && (
+        <div className="mt-6 flex gap-4 border-t border-border pt-4">
           <a
-            href={project.liveUrl}
+            href={project.repoUrl}
             target="_blank"
             rel="noreferrer"
             className="font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:text-ink-muted"
           >
-            Demo en vivo ↗
+            Código ↗
           </a>
-        )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:text-ink-muted"
+            >
+              Demo en vivo ↗
+            </a>
+          )}
+        </div>
       </div>
     </article>
   );

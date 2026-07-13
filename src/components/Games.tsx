@@ -1,4 +1,5 @@
 import { games } from "@/data/games";
+import GameEmbed from "./GameEmbed";
 import Reveal from "./Reveal";
 
 export default function Games() {
@@ -16,11 +17,10 @@ export default function Games() {
             <Reveal key={game.slug} delay={i * 60}>
               <article className="overflow-hidden rounded-xl border border-border">
                 {game.embedUrl ? (
-                  <iframe
-                    src={game.embedUrl}
-                    title={game.name}
-                    className="aspect-video w-full border-0"
-                    allow="fullscreen"
+                  <GameEmbed
+                    embedUrl={game.embedUrl}
+                    name={game.name}
+                    posterUrl={game.posterUrl}
                   />
                 ) : (
                   <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 bg-canvas px-6 text-center">
