@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { projects } from "@/data/projects";
 import { games } from "@/data/games";
 import ProjectCard from "./ProjectCard";
@@ -23,6 +24,7 @@ type Item = { kind: "project" | "game"; key: string; render: () => React.ReactNo
 
 export default function Projects() {
   const { t } = useLanguage();
+  const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const items: Item[] = CARD_ORDER.flatMap(({ kind, slug }): Item[] => {
     if (kind === "project") {
@@ -34,6 +36,31 @@ export default function Projects() {
     if (!game) return [];
     return [{ kind, key: game.slug, render: () => <GameCard game={game} /> }];
   });
+
+  useEffect(() => {
+    function update() {
+      const wrappers = wrapperRefs.current;
+      for (let i = 0; i < wrappers.length - 1; i++) {
+        const current = wrappers[i];
+        const next = wrappers[i + 1];
+        if (!current || !next) continue;
+
+        const nextStickyTop = STICKY_BASE + (i + 1) * STICKY_STEP;
+        const isNextStuck = next.getBoundingClientRect().top <= nextStickyTop + 1;
+
+        current.style.filter = isNextStuck ? "blur(1px)" : "";
+        current.style.opacity = isNextStuck ? "0.8" : "1";
+      }
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [items.length]);
 
   return (
     <section id="proyectos" className="border-t border-border">
@@ -53,7 +80,10 @@ export default function Projects() {
           {items.map((item, i) => (
             <div
               key={item.key}
-              className="sticky"
+              ref={(el) => {
+                wrapperRefs.current[i] = el;
+              }}
+              className="sticky transition-[filter,opacity] duration-300 ease-out"
               style={{ top: `${STICKY_BASE + i * STICKY_STEP}px`, zIndex: i + 1 }}
             >
               <Reveal delay={i * 60}>{item.render()}</Reveal>

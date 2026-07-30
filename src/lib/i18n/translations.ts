@@ -154,7 +154,7 @@ export const translations: Record<Locale, Translations> = {
       name: "Santiago Fuenmayor Ruiz",
       role: "Software Developer",
       description:
-        "From the database schema to the last pixel of the interface. Production websites, systems that connect hardware to the cloud, and the occasional video game along the way.",
+        "From the database schema down to the last pixel of the interface. Production websites, systems that connect hardware to the cloud, and the occasional video game along the way.",
       ctaProjects: "View projects",
       ctaGithub: "GitHub",
       ctaLinkedin: "LinkedIn",
@@ -162,9 +162,9 @@ export const translations: Record<Locale, Translations> = {
     about: {
       heading: "About me",
       bioMobile:
-        "I graduated in Interactive Technologies from the Universitat Politècnica de València. I've shipped production websites for real clients, connected Arduino boards to real-time dashboards, and designed AI behavior for video game characters in Unity — I care about the full journey of a product, from the data schema to the interface details. I mainly work with TypeScript, Next.js, Supabase and PostgreSQL.",
+        "I graduated in Interactive Technologies from the Universitat Politècnica de València. I've shipped production websites for real clients, connected Arduino boards to real-time dashboards, and designed AI behavior for video game characters in Unity — I care about a product's full journey, from the data schema to the interface details. I mainly work with TypeScript, Next.js, Supabase, and PostgreSQL.",
       bioDesktop1:
-        "I graduated in Interactive Technologies from the Universitat Politècnica de València. Along the way I've gone from shipping production websites for real clients, to connecting Arduino boards to real-time web dashboards, to designing AI behavior for video game characters in Unity.",
+        "I graduated in Interactive Technologies from the Universitat Politècnica de València. Along the way, I've gone from shipping production websites for real clients, to connecting Arduino boards to real-time web dashboards, to designing AI behavior for video game characters in Unity.",
       bioDesktop2:
         "I care about the full journey of a product: modeling the data before touching a single component, and polishing interface details once the logic works. I mainly work with TypeScript and Next.js on the frontend, Supabase and PostgreSQL on the backend, and step outside that stack whenever a project calls for it — C++ firmware, Android apps, or a game engine.",
     },
@@ -190,7 +190,7 @@ export const translations: Record<Locale, Translations> = {
     contact: {
       heading: "Contact",
       description:
-        "A project, an offer, or just want to say hi? Write to me here or straight to my email.",
+        "Got a project, an offer, or just want to say hi? Write to me here or straight to my email.",
       linkedin: "LinkedIn",
       form: {
         name: "Name",
@@ -198,7 +198,7 @@ export const translations: Record<Locale, Translations> = {
         email: "Email",
         emailPlaceholder: "you@email.com",
         message: "Message",
-        messagePlaceholder: "Tell me what you're thinking…",
+        messagePlaceholder: "Tell me what's on your mind…",
         send: "Send message",
         sending: "Sending…",
         successTitle: "Message sent.",

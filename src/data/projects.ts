@@ -67,7 +67,7 @@ export const projects: Project[] = [
     year: "2026",
     summary: {
       es: "Interfaz web para A1AN, un robot asistencial que ayuda a personas con movilidad reducida en ejercicios de rehabilitación y monitorización.",
-      en: "Web interface for A1AN, an assistive robot that helps people with reduced mobility with rehabilitation exercises and monitoring.",
+      en: "Web interface for A1AN, an assistive robot that helps people with reduced mobility through rehabilitation exercises and monitoring.",
     },
     description: {
       es: "Proyecto universitario de robótica. La web se conecta a ROS 2 vía ROSBridge para el control del robot, con streaming de cámara en vivo, detección de objetos, gestión de ejercicios y seguimiento de actividad. Autenticación y persistencia sobre Supabase (PostgreSQL).",
@@ -109,11 +109,11 @@ export const projects: Project[] = [
     year: "2025",
     summary: {
       es: "Sistema de monitorización de CO₂ y temperatura con baliza BLE en Arduino, API en PHP y app Android.",
-      en: "CO2 and temperature monitoring system with a BLE beacon on Arduino, a PHP API, and an Android app.",
+      en: "CO₂ and temperature monitoring system with a BLE beacon on Arduino, a PHP API, and an Android app.",
     },
     description: {
       es: "Proyecto académico de Sistemas Interactivos y Desarrollo Ciber-Físico. Firmware en Arduino que emite mediciones por baliza Bluetooth Low Energy, una API REST en PHP sobre MySQL, aplicación Android y panel web de visualización. Desarrollado siguiendo Gitflow con test automatizados de lógica de negocio y de API.",
-      en: "Academic project for Interactive Systems and Cyber-Physical Development. Arduino firmware that broadcasts readings over a Bluetooth Low Energy beacon, a PHP REST API on MySQL, an Android app, and a web dashboard. Built following Gitflow with automated tests for business logic and the API.",
+      en: "Academic project for Interactive Systems and Cyber-Physical Development. Arduino firmware that broadcasts readings over a Bluetooth Low Energy beacon, a PHP REST API on MySQL, an Android app, and a web dashboard. Built following Gitflow, with automated tests for both business logic and the API.",
     },
     stack: ["C++ / Arduino", "Java / Android", "PHP", "MySQL"],
     role: {
