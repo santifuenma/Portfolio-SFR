@@ -1,17 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import type { Project } from "@/data/projects";
-
-const statusLabel: Record<Project["status"], string> = {
-  live: "En producción",
-  academic: "Proyecto académico",
-  archived: "Archivado",
-};
-
-const statusTone: Record<Project["status"], string> = {
-  live: "bg-pastel-green-bg text-pastel-green-fg",
-  academic: "bg-pastel-blue-bg text-pastel-blue-fg",
-  archived: "bg-pastel-yellow-bg text-pastel-yellow-fg",
-};
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { pickLocale } from "@/lib/i18n/localized";
 
 const placeholderPairs = [
   ["var(--pastel-blue-bg)", "var(--pastel-green-bg)"],
@@ -28,7 +20,7 @@ function hashSlug(slug: string) {
   return hash;
 }
 
-function PreviewPlaceholder({ project }: { project: Project }) {
+function PreviewPlaceholder({ project, name }: { project: Project; name: string }) {
   const [from, to] = placeholderPairs[hashSlug(project.slug) % placeholderPairs.length];
 
   return (
@@ -37,34 +29,58 @@ function PreviewPlaceholder({ project }: { project: Project }) {
       style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
     >
       <span className="font-serif text-5xl italic tracking-[-0.02em] text-ink/70">
-        {project.name.charAt(0)}
+        {name.charAt(0)}
       </span>
     </div>
   );
 }
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const { locale, t } = useLanguage();
+
+  const name = pickLocale(project.name, locale);
+  const summary = pickLocale(project.summary, locale);
+
+  const statusLabel: Record<Project["status"], string> = {
+    live: t.projects.status.live,
+    academic: t.projects.status.academic,
+    archived: t.projects.status.archived,
+  };
+
+  const statusTone: Record<Project["status"], string> = {
+    live: "bg-pastel-green-bg text-pastel-green-fg",
+    academic: "bg-pastel-blue-bg text-pastel-blue-fg",
+    archived: "bg-pastel-yellow-bg text-pastel-yellow-fg",
+  };
+
   return (
-    <article className="group grid overflow-hidden rounded-xl border border-border bg-surface shadow-[0_16px_40px_-16px_rgba(0,0,0,0.14)] transition-shadow duration-200 hover:shadow-[0_20px_50px_-14px_rgba(0,0,0,0.18)] sm:grid-cols-[1.35fr_1fr]">
-      <div className="relative aspect-[4/3] w-full border-b border-border sm:aspect-auto sm:h-full sm:border-b-0 sm:border-r">
-        {project.previewImage ? (
-          <Image
-            src={project.previewImage}
-            alt={`Captura de ${project.name}`}
-            fill
-            sizes="(min-width: 640px) 60vw, 100vw"
-            className="object-cover"
-          />
-        ) : (
-          <PreviewPlaceholder project={project} />
-        )}
+    <article className="group grid overflow-hidden rounded-xl border border-border bg-surface shadow-[0_16px_40px_-16px_rgba(0,0,0,0.14)] transition-shadow duration-200 hover:shadow-[0_20px_50px_-14px_rgba(0,0,0,0.18)] sm:grid-cols-[1.35fr_1fr] sm:min-h-[357px]">
+      <div className="flex aspect-[4/3] w-full flex-col border-b border-border sm:aspect-auto sm:h-full sm:border-b-0 sm:border-r">
+        <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-border bg-surface px-3">
+          <span className="h-2 w-2 rounded-full bg-border" />
+          <span className="h-2 w-2 rounded-full bg-border" />
+          <span className="h-2 w-2 rounded-full bg-border" />
+        </div>
+        <div className="relative flex-1 bg-canvas">
+          {project.previewImage ? (
+            <Image
+              src={project.previewImage}
+              alt={name}
+              fill
+              sizes="(min-width: 640px) 60vw, 100vw"
+              className="object-contain"
+            />
+          ) : (
+            <PreviewPlaceholder project={project} name={name} />
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col justify-between p-7 sm:p-8">
         <div>
           <div className="flex items-start justify-between gap-4">
             <h3 className="font-serif text-xl italic tracking-[-0.01em] sm:text-2xl">
-              {project.name}
+              {name}
             </h3>
             <span className="shrink-0 font-mono text-xs text-ink-muted">
               {project.year}
@@ -78,7 +94,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           </span>
 
           <p className="mt-4 text-sm leading-relaxed text-ink-muted sm:text-base">
-            {project.summary}
+            {summary}
           </p>
 
           <ul className="mt-5 flex flex-wrap gap-1.5">
@@ -100,7 +116,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             rel="noreferrer"
             className="font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:text-ink-muted"
           >
-            Código ↗
+            {t.projects.code} ↗
           </a>
           {project.liveUrl && (
             <a
@@ -109,7 +125,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               rel="noreferrer"
               className="font-mono text-xs uppercase tracking-[0.05em] text-ink transition-colors hover:text-ink-muted"
             >
-              Demo en vivo ↗
+              {t.projects.liveDemo} ↗
             </a>
           )}
         </div>

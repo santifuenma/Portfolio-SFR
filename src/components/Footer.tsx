@@ -1,4 +1,9 @@
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 export default function Footer() {
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
@@ -14,13 +19,21 @@ export default function Footer() {
             rel="noreferrer"
             className="font-mono text-xs uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink"
           >
-            GitHub
+            {t.footer.github}
+          </a>
+          <a
+            href="https://www.linkedin.com/in/santiago-fuenmayor-ruiz-877a41216/?locale=es"
+            target="_blank"
+            rel="noreferrer"
+            className="font-mono text-xs uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink"
+          >
+            {t.footer.linkedin}
           </a>
           <a
             href="mailto:sanfuenmayor@gmail.com"
             className="font-mono text-xs uppercase tracking-[0.05em] text-ink-muted transition-colors hover:text-ink"
           >
-            Email
+            {t.footer.email}
           </a>
         </div>
       </div>

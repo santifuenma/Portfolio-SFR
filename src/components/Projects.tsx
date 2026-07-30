@@ -1,35 +1,62 @@
+"use client";
+
 import { projects } from "@/data/projects";
+import { games } from "@/data/games";
 import ProjectCard from "./ProjectCard";
+import GameCard from "./GameCard";
 import Reveal from "./Reveal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const STICKY_BASE = 88;
 const STICKY_STEP = 18;
 
+const CARD_ORDER: Array<{ kind: "project" | "game"; slug: string }> = [
+  { kind: "project", slug: "modernhome-webcatalog" },
+  { kind: "project", slug: "gp77-web" },
+  { kind: "project", slug: "kosmos" },
+  { kind: "game", slug: "mylo-tfs" },
+  { kind: "project", slug: "proyecto-biometria" },
+  { kind: "project", slug: "a1an-web" },
+];
+
+type Item = { kind: "project" | "game"; key: string; render: () => React.ReactNode };
+
 export default function Projects() {
+  const { t } = useLanguage();
+
+  const items: Item[] = CARD_ORDER.flatMap(({ kind, slug }): Item[] => {
+    if (kind === "project") {
+      const project = projects.find((p) => p.slug === slug);
+      if (!project) return [];
+      return [{ kind, key: project.slug, render: () => <ProjectCard project={project} /> }];
+    }
+    const game = games.find((g) => g.slug === slug);
+    if (!game) return [];
+    return [{ kind, key: game.slug, render: () => <GameCard game={game} /> }];
+  });
+
   return (
     <section id="proyectos" className="border-t border-border">
       <div className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
         <Reveal>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="font-serif text-3xl italic tracking-[-0.02em] sm:text-4xl">
-              Proyectos
+              {t.projects.heading}
             </h2>
             <p className="font-mono text-xs uppercase tracking-[0.08em] text-ink-muted">
-              {projects.length} proyectos seleccionados
+              {items.length} {t.projects.countSuffix}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-12 flex flex-col gap-10 sm:gap-14">
-          {projects.map((project, i) => (
+          {items.map((item, i) => (
             <div
-              key={project.slug}
+              key={item.key}
               className="sticky"
               style={{ top: `${STICKY_BASE + i * STICKY_STEP}px`, zIndex: i + 1 }}
             >
-              <Reveal delay={i * 60}>
-                <ProjectCard project={project} />
-              </Reveal>
+              <Reveal delay={i * 60}>{item.render()}</Reveal>
             </div>
           ))}
         </div>

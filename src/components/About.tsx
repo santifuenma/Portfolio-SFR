@@ -1,4 +1,7 @@
+"use client";
+
 import Reveal from "./Reveal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const stack = [
   { label: "TypeScript", tone: "blue" },
@@ -21,38 +24,34 @@ const toneClasses: Record<string, string> = {
 };
 
 export default function About() {
+  const { t } = useLanguage();
+
   return (
     <section id="sobre-mi" className="border-t border-border">
-      <div className="mx-auto grid max-w-5xl gap-12 px-6 py-24 sm:py-32 md:grid-cols-[1fr_1.3fr]">
+      <div className="mx-auto max-w-5xl px-6 py-24 sm:py-32">
         <Reveal>
           <h2 className="font-serif text-3xl italic tracking-[-0.02em] sm:text-4xl">
-            Sobre mí
+            {t.about.heading}
           </h2>
         </Reveal>
 
-        <div className="space-y-6">
+        <div className="mt-8 max-w-3xl space-y-6">
           <Reveal>
-            <p className="text-base leading-relaxed text-ink sm:text-lg">
-              Estoy terminando el grado en Tecnologías Interactivas en la
-              Universitat Politècnica de València. En ese tiempo he pasado de
-              entregar webs de producción a clientes reales, a conectar
-              placas Arduino con paneles web en tiempo real, a diseñar
-              comportamiento de IA para personajes de videojuego en Unity.
+            <p className="text-base leading-relaxed text-ink sm:hidden">
+              {t.about.bioMobile}
             </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
-              Me interesa el recorrido completo de un producto: modelar los
-              datos antes de tocar un componente, y cuidar el detalle de
-              interfaz después de que la lógica funcione. Trabajo
-              principalmente con TypeScript y Next.js en el frontend,
-              Supabase y PostgreSQL en el backend, y salgo de ahí cuando el
-              proyecto lo pide — firmware en C++, apps Android, o un motor de
-              juego.
+            <p className="hidden text-base leading-relaxed text-ink sm:block sm:text-lg">
+              {t.about.bioDesktop1}
             </p>
           </Reveal>
 
-          <Reveal delay={160}>
+          <Reveal delay={40} className="hidden sm:block">
+            <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
+              {t.about.bioDesktop2}
+            </p>
+          </Reveal>
+
+          <Reveal delay={80}>
             <ul className="flex flex-wrap gap-2 pt-2">
               {stack.map((item) => (
                 <li

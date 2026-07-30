@@ -111,7 +111,7 @@ export default function DotGridReveal() {
             style={
               {
                 ...varStyle,
-                backgroundImage: `radial-gradient(circle 2.5px, ${spot.light} 0%, ${spot.base} 65%, transparent 100%)`,
+                backgroundImage: `radial-gradient(circle 2px, ${spot.light} 0%, ${spot.base} 65%, transparent 100%)`,
                 WebkitMaskImage: maskImage,
                 maskImage,
               } as CSSProperties

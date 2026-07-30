@@ -2,10 +2,12 @@
 
 import { useState, type FormEvent } from "react";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const submitRef = useMagnetic<HTMLButtonElement>();
@@ -33,7 +35,7 @@ export default function ContactForm() {
 
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        setErrorMessage(body.error ?? "No se pudo enviar el mensaje.");
+        setErrorMessage(body.error ?? t.contact.form.errorGeneric);
         setStatus("error");
         return;
       }
@@ -41,7 +43,7 @@ export default function ContactForm() {
       form.reset();
       setStatus("success");
     } catch {
-      setErrorMessage("No se pudo conectar. Revisa tu conexión e inténtalo de nuevo.");
+      setErrorMessage(t.contact.form.errorNetwork);
       setStatus("error");
     }
   }
@@ -50,11 +52,9 @@ export default function ContactForm() {
     return (
       <div className="rounded-xl border border-border bg-surface p-8 text-center">
         <p className="font-serif text-xl italic tracking-[-0.01em]">
-          Mensaje enviado.
+          {t.contact.form.successTitle}
         </p>
-        <p className="mt-2 text-sm text-ink-muted">
-          Gracias por escribir — te responderé en cuanto pueda.
-        </p>
+        <p className="mt-2 text-sm text-ink-muted">{t.contact.form.successBody}</p>
       </div>
     );
   }
@@ -73,7 +73,7 @@ export default function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="font-mono text-xs uppercase tracking-[0.08em] text-ink-muted">
-            Nombre
+            {t.contact.form.name}
           </label>
           <input
             id="name"
@@ -83,12 +83,12 @@ export default function ContactForm() {
             minLength={2}
             maxLength={200}
             className="mt-2 w-full rounded-md border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-ink"
-            placeholder="Tu nombre"
+            placeholder={t.contact.form.namePlaceholder}
           />
         </div>
         <div>
           <label htmlFor="email" className="font-mono text-xs uppercase tracking-[0.08em] text-ink-muted">
-            Email
+            {t.contact.form.email}
           </label>
           <input
             id="email"
@@ -97,14 +97,14 @@ export default function ContactForm() {
             required
             maxLength={200}
             className="mt-2 w-full rounded-md border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-ink"
-            placeholder="tu@email.com"
+            placeholder={t.contact.form.emailPlaceholder}
           />
         </div>
       </div>
 
       <div>
         <label htmlFor="message" className="font-mono text-xs uppercase tracking-[0.08em] text-ink-muted">
-          Mensaje
+          {t.contact.form.message}
         </label>
         <textarea
           id="message"
@@ -114,7 +114,7 @@ export default function ContactForm() {
           maxLength={4000}
           rows={5}
           className="mt-2 w-full resize-none rounded-md border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-ink"
-          placeholder="Cuéntame en qué estás pensando…"
+          placeholder={t.contact.form.messagePlaceholder}
         />
       </div>
 
@@ -130,7 +130,7 @@ export default function ContactForm() {
         disabled={status === "sending"}
         className="rounded-md bg-ink px-5 py-3 font-mono text-xs uppercase tracking-[0.05em] text-canvas transition-colors hover:bg-[#333] disabled:opacity-50"
       >
-        {status === "sending" ? "Enviando…" : "Enviar mensaje"}
+        {status === "sending" ? t.contact.form.sending : t.contact.form.send}
       </button>
     </form>
   );

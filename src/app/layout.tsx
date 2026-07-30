@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import CustomCursor from "@/components/CustomCursor";
 import DotGridReveal from "@/components/DotGridReveal";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,7 +22,7 @@ const newsreader = Newsreader({
 });
 
 const SITE_URL = "https://santiagofuenmayorruiz.com";
-const TITLE = "Santiago Fuenmayor Ruiz — Desarrollador Full-Stack";
+const TITLE = "Santiago Fuenmayor Ruiz — Desarrollador de Software";
 const DESCRIPTION =
   "Portfolio de Santiago Fuenmayor Ruiz: proyectos web, sistemas IoT y videojuegos construidos de principio a fin, desde Valencia.";
 
@@ -75,7 +76,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Santiago Fuenmayor Ruiz",
   url: SITE_URL,
-  jobTitle: "Desarrollador Full-Stack",
+  jobTitle: "Desarrollador de Software",
   email: "mailto:sanfuenmayor@gmail.com",
   address: {
     "@type": "PostalAddress",
@@ -86,7 +87,10 @@ const personJsonLd = {
     "@type": "CollegeOrUniversity",
     name: "Universitat Politècnica de València",
   },
-  sameAs: ["https://github.com/santifuenma"],
+  sameAs: [
+    "https://github.com/santifuenma",
+    "https://www.linkedin.com/in/santiago-fuenmayor-ruiz-877a41216/",
+  ],
 };
 
 export default function RootLayout({
@@ -104,9 +108,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <CustomCursor />
-        <DotGridReveal />
-        <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
+        <LanguageProvider>
+          <CustomCursor />
+          <DotGridReveal />
+          <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
+        </LanguageProvider>
       </body>
     </html>
   );

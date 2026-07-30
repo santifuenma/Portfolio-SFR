@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Santiago Fuenmayor Ruiz — Desarrollador Full-Stack";
+export const alt = "Santiago Fuenmayor Ruiz — Desarrollador de Software";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -55,7 +55,7 @@ export default function OgImage() {
               color: "#6f6b64",
             }}
           >
-            Desarrollador Full-Stack
+            Desarrollador de Software
           </div>
         </div>
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type GameEmbedProps = {
   embedUrl: string;
@@ -13,6 +14,7 @@ type GameEmbedProps = {
 export default function GameEmbed({ embedUrl, name, posterUrl }: GameEmbedProps) {
   const [loaded, setLoaded] = useState(false);
   const playRef = useMagnetic<HTMLSpanElement>();
+  const { t } = useLanguage();
 
   if (loaded) {
     return (
@@ -55,10 +57,10 @@ export default function GameEmbed({ embedUrl, name, posterUrl }: GameEmbedProps)
         </svg>
       </span>
       <span className="relative font-mono text-xs uppercase tracking-[0.08em] text-white">
-        Jugar {name}
+        {t.projects.play} {name}
       </span>
       <span className="relative max-w-xs px-6 text-center text-[11px] text-white/70">
-        Carga un build de Unity de ~40 MB
+        {t.game.loadHint}
       </span>
     </button>
   );
