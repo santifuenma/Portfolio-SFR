@@ -28,7 +28,7 @@ export default function Hero() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-6 max-w-3xl text-[2.75rem] leading-[1.1] tracking-[-0.03em] sm:text-6xl">
+              <h1 className="mt-6 max-w-3xl text-[2.75rem] leading-[1.1] tracking-[-0.03em] sm:text-6xl md:max-w-none md:whitespace-nowrap">
                 {t.hero.name}
               </h1>
               <p className="mt-3 font-serif text-2xl italic tracking-[-0.01em] text-ink-muted sm:text-3xl">
